@@ -8,8 +8,6 @@
 
 ```bash
 pnpm add git+https://github.com/hjw472015868/theme.git#v1.0.0
-# 或指定版本
-pnpm add git+https://github.com/hjw472015868/theme.git#v1.0.0
 ```
 
 ### 使用最新版本
@@ -26,47 +24,6 @@ pnpm add git+https://github.com/hjw472015868/theme.git
 - ✅ **类型安全**：完整的 TypeScript 类型定义
 - ✅ **框架适配**：提供 UmiJS 和 Next.js 专用适配器
 
-## 安装
-
-### 方式一：使用 workspace（monorepo 推荐）
-
-如果你的项目在同一个 monorepo 中：
-
-```json
-// package.json
-{
-  "dependencies": {
-    "@km-design/theme-system": "workspace:*"
-  }
-}
-```
-
-然后安装：
-
-```bash
-pnpm install
-```
-
-### 方式二：发布到 npm（如果发布）
-
-```bash
-pnpm add @km-design/theme-system
-# 或
-npm install @km-design/theme-system
-```
-
-### 方式三：本地链接（开发测试）
-
-```bash
-# 在主题包目录中
-cd packages/theme-system
-pnpm link
-
-# 在你的项目中
-cd /path/to/your/project
-pnpm link @km-design/theme-system
-```
-
 ## 快速开始
 
 ### UmiJS 项目
@@ -74,7 +31,7 @@ pnpm link @km-design/theme-system
 #### 1. 安装包
 
 ```bash
-pnpm add @km-design/theme-system
+pnpm add git+https://github.com/hjw472015868/theme.git
 ```
 
 #### 2. 在 app.tsx 中使用
@@ -98,7 +55,7 @@ export function rootContainer(container: React.ReactElement) {
 import { useTheme, ThemeSwitcher } from '@km-design/theme-system';
 
 function MyComponent() {
-  const { currentTheme, switchTheme, availableThemes } = useTheme();
+  const { currentTheme, switchTheme } = useTheme();
   
   return (
     <div>
@@ -114,7 +71,7 @@ function MyComponent() {
 #### 1. 安装包
 
 ```bash
-pnpm add @km-design/theme-system
+pnpm add git+https://github.com/hjw472015868/theme.git
 ```
 
 #### 2. 在 layout.tsx 中使用
@@ -144,13 +101,12 @@ export default function RootLayout({ children }) {
 import { useTheme, ThemeSwitcher } from '@km-design/theme-system';
 
 export default function MyComponent() {
-  const { currentTheme, switchTheme, isDarkMode } = useTheme();
+  const { currentTheme, isDarkMode } = useTheme();
   
   return (
     <div>
       <ThemeSwitcher />
       <p>当前主题: {currentTheme}</p>
-      <p>暗色模式: {isDarkMode ? '是' : '否'}</p>
     </div>
   );
 }
@@ -195,30 +151,17 @@ const {
 />
 ```
 
-### 注册主题
-
-```typescript
-import { registerTheme, registerThemes } from '@km-design/theme-system';
-import customTheme from './custom-theme.json';
-
-// 注册单个主题
-registerTheme('custom', customTheme);
-
-// 批量注册主题
-registerThemes({
-  custom1: customTheme1,
-  custom2: customTheme2,
-});
-```
-
 ## 预设主题
 
 包内置以下预设主题：
 
 - `default` - 默认主题
 - `dark` - 暗色主题
-- `light` - 浅色主题
+- `km-base` - KM 基础主题
 - `spring-festival` - 春节主题
+- `forest` - 森林主题
+- `party` - 派对主题
+- `red-theme` - 红色主题
 
 ## 使用 CSS Variables
 
@@ -266,6 +209,18 @@ module.exports = {
 };
 ```
 
+## 更新包
+
+### 在其他项目中更新
+
+```bash
+# 更新到最新版本
+pnpm update @km-design/theme-system
+
+# 或指定版本
+pnpm add @km-design/theme-system@git+https://github.com/hjw472015868/theme.git#v1.0.1
+```
+
 ## 开发
 
 ```bash
@@ -282,14 +237,23 @@ pnpm type-check
 pnpm dev
 ```
 
-## 📚 更多文档
+## 发布新版本
 
-- [使用指南](./USAGE_GUIDE.md) - 详细的使用说明和示例
-- [开发指南](./DEVELOPMENT_GUIDE.md) - 如何开发和更新主题组件
-- [安全迁移指南](./SAFE_MIGRATION_GUIDE.md) - 渐进式迁移步骤
-- [快速参考](./QUICK_REFERENCE.md) - 日常开发命令
+```bash
+# 1. 更新版本号（package.json）
+# 2. 构建包
+pnpm build
+
+# 3. 提交并推送
+git add .
+git commit -m "Release: v1.0.1"
+git push
+
+# 4. 创建标签
+git tag v1.0.1
+git push origin v1.0.1
+```
 
 ## 许可证
 
 MIT
-
