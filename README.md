@@ -2,6 +2,22 @@
 
 统一主题系统，支持 UmiJS 和 Next.js 项目。
 
+## 📦 安装
+
+### 从 GitHub 安装
+
+```bash
+pnpm add git+https://github.com/hjw472015868/theme.git#v1.0.0
+# 或指定版本
+pnpm add git+https://github.com/hjw472015868/theme.git#v1.0.0
+```
+
+### 使用最新版本
+
+```bash
+pnpm add git+https://github.com/hjw472015868/theme.git
+```
+
 ## 特性
 
 - ✅ **统一管理**：所有主题配置集中在一个包中
