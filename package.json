@@ -8,7 +8,8 @@
   "files": [
     "dist",
     "presets",
-    "README.md"
+    "README.md",
+    "docs"
   ],
   "publishConfig": {
     "access": "public"
