@@ -27,8 +27,7 @@
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",
     "dev": "rollup -c -w",
-    "publish:npm": "bash scripts/publish.sh",
-    "package": "bash scripts/package-for-sharing.sh",
+    "push": "bash scripts/push.sh",
     "release": "bash scripts/release.sh",
     "prepublishOnly": "pnpm build"
   },
