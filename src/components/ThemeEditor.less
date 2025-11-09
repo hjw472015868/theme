@@ -1,0 +1,306 @@
+/**
+ * 主题编辑器样式
+ */
+
+.theme-editor-drawer {
+  .ant-drawer-body {
+    padding: 0;
+  }
+
+  .theme-editor-tabs {
+    height: 100%;
+
+    // 隐藏左侧 tabs 的竖线
+    .ant-tabs-nav::before {
+      display: none !important;
+    }
+
+    // 减少左侧 tabs 的内边距
+    .ant-tabs-tab {
+      padding: 8px 16px !important;
+      margin: 4px 0 !important;
+    }
+
+    // 优化内容区域的边距
+    .ant-tabs-content {
+      height: 100%;
+      padding: 16px 20px; // 减少内边距：24px -> 16px 20px
+      overflow-y: auto;
+    }
+
+    // 减少 tab 内容的上边距
+    .ant-tabs-content-holder {
+      border-left: none !important; // 移除左边框
+    }
+  }
+
+  .theme-editor-section {
+    .ant-typography {
+      margin-bottom: 12px; // 减少标题下方间距：16px -> 12px
+    }
+  }
+
+  // 所有主题网格（缩小版）
+  .theme-editor-themes {
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .theme-card {
+      position: relative;
+      transition: all 0.3s;
+
+      &.active {
+        border-color: var(--primary);
+        box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+      }
+
+      .active-icon {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        font-size: 16px;
+        color: var(--primary);
+      }
+
+      .ant-card-extra {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        z-index: 1;
+        
+        .anticon-delete {
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s;
+          
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      .theme-preview {
+        padding: 8px;
+
+        .theme-name {
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          color: var(--foreground);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .theme-description {
+          font-size: 11px;
+          color: var(--muted-foreground);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  // 颜色配置项容器（网格布局）
+  .color-settings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 一行3列
+    gap: 12px; // 卡片之间的间距
+    margin-top: 8px;
+  }
+
+  // 单个颜色配置卡片
+  .color-item {
+    display: flex;
+    flex-direction: column; // 改为垂直布局
+    padding: 12px;
+    border: none; // 移除边框
+    border-radius: 6px;
+    background: var(--muted, #f5f5f5); // 使用浅色背景区分
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--accent, #f0f0f0); // 悬停时背景色稍微变化
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    // 英文标签（顶部）
+    .color-label-en {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--foreground, #000000d9);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    // 中文标签（中间，小一点）
+    .color-label-zh {
+      font-size: 11px;
+      color: var(--muted-foreground, #00000073);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    // 底部：颜色选择器和输入框
+    .color-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .ant-color-picker {
+        flex-shrink: 0;
+      }
+
+      input {
+        flex: 1;
+        font-size: 12px;
+        min-width: 0; // 允许输入框收缩
+      }
+    }
+
+    // 移除旧的样式
+    .ant-typography {
+      margin: 0;
+    }
+  }
+
+  // 滑块配置项
+  .slider-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0; // 减少垂直间距：8px -> 6px
+
+    .ant-typography {
+      flex: 1;
+      margin: 0;
+      font-size: 13px; // 稍微减小字体
+    }
+  }
+
+  // 优化 Collapse 组件的间距
+  .ant-collapse {
+    border: none !important;
+    background: transparent !important;
+
+    .ant-collapse-item {
+      border-bottom: 1px solid var(--border, #d9d9d9);
+      margin-bottom: 8px; // 减少折叠面板之间的间距
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .ant-collapse-header {
+      padding: 10px 0 !important; // 减少折叠面板头部内边距
+      font-weight: 500;
+    }
+
+    .ant-collapse-content {
+      border-top: none !important;
+    }
+
+    .ant-collapse-content-box {
+      padding: 12px 0 !important; // 减少折叠面板内容内边距
+    }
+  }
+
+  // 优化 Space 组件的间距
+  .ant-space-vertical {
+    gap: 8px !important; // 减少垂直间距
+  }
+
+  // 字体大小滑块样式优化
+  .theme-editor-section {
+    .ant-slider {
+      margin: 0;
+      padding: 4px 0;
+
+      // 滑块轨道
+      .ant-slider-rail {
+        background: #e8e8e8;
+        height: 4px;
+        border-radius: 2px;
+      }
+
+      // 滑块已选中轨道
+      .ant-slider-track {
+        background: linear-gradient(90deg, var(--primary-500, #1890ff), var(--primary-600, #096dd9));
+        height: 4px;
+        border-radius: 2px;
+      }
+
+      // 滑块手柄（圆形）
+      .ant-slider-handle {
+        width: 16px;
+        height: 16px;
+        margin-top: -6px;
+        border: 2px solid var(--primary, #1890ff) !important;
+        border-radius: 50% !important; // 圆形
+        background-color: #fff !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none !important;
+
+        &::before,
+        &::after {
+          display: none !important;
+        }
+
+        &:hover,
+        &:focus {
+          border-color: var(--primary-600, #096dd9) !important;
+          box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4) !important;
+          transform: scale(1.2);
+        }
+
+        &:active {
+          border-color: var(--primary-700, #0050b3) !important;
+          box-shadow: 0 1px 4px rgba(24, 144, 255, 0.3) !important;
+          transform: scale(1.1);
+        }
+      }
+
+      // 隐藏刻度标记
+      .ant-slider-mark {
+        display: none !important;
+      }
+
+      .ant-slider-mark-text {
+        display: none !important;
+      }
+
+      // Tooltip 样式
+      .ant-tooltip {
+        .ant-tooltip-inner {
+          background-color: rgba(0, 0, 0, 0.85);
+          font-weight: 500;
+          font-size: 12px;
+          padding: 6px 12px;
+          border-radius: 4px;
+        }
+
+        .ant-tooltip-arrow-content {
+          background-color: rgba(0, 0, 0, 0.85);
+        }
+      }
+    }
+  }
+}
+

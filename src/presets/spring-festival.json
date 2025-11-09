@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "name": "春节主题",
+    "version": "1.0.0",
+    "author": "KM Design Team",
+    "description": "春节特别主题，喜庆祥和的红色基调",
+    "mode": "light",
+    "type": "festival"
+  },
+
+  "colors": {
+    "primary": {
+      "50": "#fef2f2",
+      "100": "#fee2e2",
+      "200": "#fecaca",
+      "300": "#fca5a5",
+      "400": "#f87171",
+      "500": "#e53935",
+      "600": "#dc2626",
+      "700": "#b91c1c",
+      "800": "#991b1b",
+      "900": "#7f1d1d"
+    },
+    "secondary": {
+      "50": "#fffbeb",
+      "100": "#fef3c7",
+      "200": "#fde68a",
+      "300": "#fcd34d",
+      "400": "#fbbf24",
+      "500": "#f59e0b",
+      "600": "#d97706",
+      "700": "#b45309",
+      "800": "#92400e",
+      "900": "#78350f"
+    },
+    "success": {
+      "50": "#e8f5e9",
+      "100": "#c8e6c9",
+      "200": "#a5d6a7",
+      "300": "#81c784",
+      "400": "#66bb6a",
+      "500": "#52c41a",
+      "600": "#43a047",
+      "700": "#388e3c",
+      "800": "#2e7d32",
+      "900": "#1b5e20"
+    },
+    "warning": {
+      "50": "#fff3e0",
+      "100": "#ffe0b2",
+      "200": "#ffcc80",
+      "300": "#ffb74d",
+      "400": "#ffa726",
+      "500": "#faad14",
+      "600": "#fb8c00",
+      "700": "#f57c00",
+      "800": "#ef6c00",
+      "900": "#e65100"
+    },
+    "error": {
+      "50": "#ffebee",
+      "100": "#ffcdd2",
+      "200": "#ef9a9a",
+      "300": "#e57373",
+      "400": "#ef5350",
+      "500": "#ff4d4f",
+      "600": "#e53935",
+      "700": "#d32f2f",
+      "800": "#c62828",
+      "900": "#b71c1c"
+    },
+    "info": {
+      "50": "#e1f5fe",
+      "100": "#b3e5fc",
+      "200": "#81d4fa",
+      "300": "#4fc3f7",
+      "400": "#29b6f6",
+      "500": "#13c2c2",
+      "600": "#0288d1",
+      "700": "#0277bd",
+      "800": "#01579b",
+      "900": "#014a7d"
+    },
+    "neutral": {
+      "50": "#fafafa",
+      "100": "#fef6f6",
+      "200": "#fee8e8",
+      "300": "#fdd8d8",
+      "400": "#fcb8b8",
+      "500": "#9e9e9e",
+      "600": "#757575",
+      "700": "#616161",
+      "800": "#424242",
+      "900": "#212121"
+    },
+    "semantic": {
+      "background": "#fffbf5",
+      "foreground": "#7f1d1d",
+      "contentBg": "#fff8f0",
+      "card": "#ffffff",
+      "cardForeground": "#7f1d1d",
+      "cardBorder": "#fee2e2",
+      "border": "#fecaca",
+      "input": "#fecaca",
+      "muted": "#fef2f2",
+      "mutedForeground": "#991b1b",
+      "accent": "#fee2e2",
+      "accentForeground": "#7f1d1d",
+      "destructive": "#ff4d4f",
+      "destructiveForeground": "#ffffff",
+      "link": "#e53935",
+      "linkHover": "#dc2626"
+    }
+  },
+
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "2xl": "48px",
+    "3xl": "64px"
+  },
+
+  "typography": {
+    "fontFamily": {
+      "sans": ["PingFang SC", "Microsoft YaHei", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+      "mono": ["Monaco", "Menlo", "Consolas", "Courier New", "monospace"]
+    },
+    "fontSize": {
+      "xs": "12px",
+      "sm": "14px",
+      "base": "16px",
+      "lg": "18px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "30px",
+      "4xl": "36px"
+    },
+    "fontWeight": {
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "lineHeight": {
+      "tight": 1.25,
+      "normal": 1.5,
+      "relaxed": 1.75
+    }
+  },
+
+  "borderRadius": {
+    "none": "0",
+    "sm": "6px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "2xl": "24px",
+    "full": "9999px"
+  },
+  "borders": {
+    "width": {
+      "none": "0",
+      "thin": "1px",
+      "medium": "2px",
+      "thick": "3px"
+    },
+    "style": {
+      "solid": "solid",
+      "dashed": "dashed",
+      "dotted": "dotted"
+    },
+    "composite": {
+      "none": "0",
+      "default": "1px solid",
+      "card": "1px solid",
+      "input": "1px solid",
+      "thick": "2px solid",
+      "dashed": "1px dashed",
+      "dotted": "1px dotted"
+    },
+    "colors": {
+      "none": "#fecaca",
+      "default": "#fecaca",
+      "card": "#fee2e2",
+      "input": "#fecaca",
+      "thick": "#fca5a5",
+      "dashed": "#fee2e2",
+      "dotted": "#fee2e2"
+    }
+  },
+  "shadows": {
+    "none": "none",
+    "sm": "0 1px 2px 0 rgba(220, 38, 38, 0.1)",
+    "md": "0 4px 6px -1px rgba(220, 38, 38, 0.15), 0 2px 4px -1px rgba(220, 38, 38, 0.1)",
+    "lg": "0 10px 15px -3px rgba(220, 38, 38, 0.15), 0 4px 6px -2px rgba(220, 38, 38, 0.1)",
+    "xl": "0 20px 25px -5px rgba(220, 38, 38, 0.15), 0 10px 10px -5px rgba(220, 38, 38, 0.1)",
+    "2xl": "0 25px 50px -12px rgba(220, 38, 38, 0.3)",
+    "inner": "inset 0 2px 4px 0 rgba(220, 38, 38, 0.1)"
+  },
+
+  "animation": {
+    "duration": {
+      "fast": "150ms",
+      "normal": "300ms",
+      "slow": "500ms"
+    },
+    "easing": {
+      "default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "in": "cubic-bezier(0.4, 0, 1, 1)",
+      "out": "cubic-bezier(0, 0, 0.2, 1)",
+      "inOut": "cubic-bezier(0.4, 0, 0.2, 1)"
+    }
+  }
+}
+

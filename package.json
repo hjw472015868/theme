@@ -1,0 +1,58 @@
+{
+  "name": "@km-design/theme-system",
+  "version": "1.0.0",
+  "description": "统一主题系统，支持 UmiJS 和 Next.js 项目",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "presets",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./presets/*": "./presets/*.json",
+    "./presets": "./presets"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit",
+    "dev": "rollup -c -w",
+    "publish:npm": "bash scripts/publish.sh",
+    "package": "bash scripts/package-for-sharing.sh",
+    "release": "bash scripts/release.sh",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "antd": "^5.0.0"
+  },
+  "dependencies": {
+    "antd": "^5.24.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-typescript": "^12.1.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^5.8.3"
+  }
+}
+

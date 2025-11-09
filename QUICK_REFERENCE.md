@@ -1,0 +1,145 @@
+# 快速参考指南
+
+## 🚀 迁移后如何开发和更新主题组件
+
+### 日常开发流程
+
+```bash
+# 1. 修改主题包代码
+cd packages/theme-system
+# 编辑文件...
+
+# 2. 构建包
+pnpm build
+
+# 3. 在项目中测试（自动使用最新版本，因为是 workspace）
+cd ../../apps/km-artizen-ai-ui
+pnpm dev
+```
+
+### 添加新主题
+
+```bash
+# 1. 创建主题文件
+cd packages/theme-system/src/presets
+# 创建 ocean.json
+
+# 2. 定义主题配置（参考 default.json）
+
+# 3. UmiJS 自动加载（无需手动注册）
+# Next.js 需要在适配器中注册
+
+# 4. 构建
+cd ../..
+pnpm build
+```
+
+### 修改现有主题
+
+```bash
+# 1. 编辑主题文件
+cd packages/theme-system/src/presets
+# 编辑 default.json
+
+# 2. 构建
+cd ../..
+pnpm build
+
+# 3. 在项目中测试
+```
+
+### 修改转换器
+
+```bash
+# 1. 编辑转换器
+cd packages/theme-system/src/transformer
+# 编辑 index.ts
+
+# 2. 构建和类型检查
+cd ../..
+pnpm build
+pnpm type-check
+```
+
+### 修改组件
+
+```bash
+# 1. 编辑组件
+cd packages/theme-system/src/components
+# 编辑 ThemeSwitcher.tsx 或 ThemeEditor.tsx
+
+# 2. 构建
+cd ../..
+pnpm build
+```
+
+---
+
+## 📝 常用命令
+
+```bash
+# 构建包
+pnpm build
+
+# 类型检查
+pnpm type-check
+
+# 开发模式（监听文件变化）
+pnpm dev
+
+# 清理构建产物
+pnpm clean
+```
+
+---
+
+## 🔄 更新流程
+
+### 在 monorepo 中（使用 workspace）
+
+```bash
+# 1. 修改包代码
+cd packages/theme-system
+# 编辑文件...
+
+# 2. 构建
+pnpm build
+
+# 3. 项目自动使用最新版本（因为是 workspace:*）
+# 无需额外操作
+```
+
+### 如果发布到 npm
+
+```bash
+# 1. 更新版本号
+npm version patch  # 或 minor, major
+
+# 2. 构建
+pnpm build
+
+# 3. 发布
+npm publish
+
+# 4. 在项目中更新
+cd apps/km-artizen-ai-ui
+pnpm update @km-design/theme-system
+```
+
+---
+
+## 🎯 关键点
+
+1. **修改包代码后必须构建**: `pnpm build`
+2. **使用 workspace 协议**: 项目自动使用最新版本
+3. **类型检查**: `pnpm type-check` 确保类型正确
+4. **测试**: 在项目中测试功能是否正常
+
+---
+
+## 📚 详细文档
+
+- [开发指南](./DEVELOPMENT_GUIDE.md) - 详细的开发说明
+- [安全迁移指南](./SAFE_MIGRATION_GUIDE.md) - 渐进式迁移步骤
+- [README.md](./README.md) - 使用文档
+
