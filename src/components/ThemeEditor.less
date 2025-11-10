@@ -40,11 +40,14 @@
     }
   }
 
-  // 所有主题网格（三列布局）
+  // 所有主题网格（自适应布局，最小3列）
   .theme-editor-themes {
     .theme-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); // 固定三列布局
+      // 自适应布局：每列最小宽度约 200px（确保至少3列），宽度变大时自动增加列数
+      // 计算方式：假设内容区域约 600px，3列时每列约 200px（600px - 24px gap） / 3 ≈ 192px
+      // 设置为 200px 确保至少3列，当宽度变大时（如 900px）会自动显示4列或更多
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 12px;
       margin-top: 16px;
     }
