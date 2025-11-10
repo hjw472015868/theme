@@ -27,7 +27,7 @@
 }
 .theme-editor-drawer .theme-editor-themes .theme-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 12px;
   margin-top: 16px;
 }
@@ -42,9 +42,10 @@
 .theme-editor-drawer .theme-editor-themes .theme-card .active-icon {
   position: absolute;
   top: 6px;
-  right: 6px;
+  left: 6px;
   font-size: 16px;
   color: var(--primary);
+  z-index: 2;
 }
 .theme-editor-drawer .theme-editor-themes .theme-card .ant-card-extra {
   position: absolute;
