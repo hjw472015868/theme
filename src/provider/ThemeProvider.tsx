@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { transformTheme, applyCSSVariables } from '../transformer';
@@ -98,8 +98,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
     try {
       const stored = localStorage.getItem(storageKey);
-      const availableThemes = Object.keys(THEME_REGISTRY);
-      if (stored && availableThemes.includes(stored)) {
+      // 即使主题还没注册，也先读取 localStorage 的值
+      // 后续会在主题注册完成后验证并应用
+      if (stored) {
         return stored;
       }
     } catch (error) {
@@ -115,6 +116,37 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // 在主题注册完成后，验证并恢复 localStorage 中的主题
+  const restoredRef = useRef(false);
+  
+  useEffect(() => {
+    if (!mounted || !enableStorage || typeof window === 'undefined' || restoredRef.current) return;
+
+    const availableThemes = Object.keys(THEME_REGISTRY);
+    // 如果主题已注册且还未恢复过
+    if (availableThemes.length > 0) {
+      restoredRef.current = true;
+      
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored && availableThemes.includes(stored)) {
+          // 如果 localStorage 中的主题与当前主题不同，恢复它
+          if (stored !== currentTheme) {
+            console.log(`✅ 从 localStorage 恢复主题: ${stored}`);
+            setCurrentTheme(stored);
+          }
+        } else if (stored && !availableThemes.includes(stored)) {
+          // 如果保存的主题不存在，使用默认主题
+          console.warn(`⚠️ 保存的主题 "${stored}" 不存在，使用默认主题`);
+          setCurrentTheme(defaultThemeName);
+          localStorage.setItem(storageKey, defaultThemeName);
+        }
+      } catch (error) {
+        console.warn('Failed to restore theme from localStorage:', error);
+      }
+    }
+  }, [mounted, enableStorage, storageKey, defaultThemeName, currentTheme]);
 
   // 获取当前主题配置（支持 localStorage 覆盖）
   const themeConfig = useMemo(() => {
