@@ -24,6 +24,8 @@
     "./presets": "./presets"
   },
   "scripts": {
+    "generate:themes": "node scripts/generate-theme-imports.js",
+    "prebuild": "pnpm generate:themes",
     "build": "rollup -c",
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",

@@ -1,6 +1,10 @@
 /**
  * Next.js 适配器
  * 使用静态导入注册预设主题
+ *
+ * ⚠️ 此文件由 scripts/generate-theme-imports.js 自动生成
+ * 请勿手动修改！如需添加新主题，请将主题文件放入 presets/ 目录，然后运行：
+ * pnpm run generate:themes
  */
 import React from 'react';
 import { type ThemeProviderProps } from './ThemeProvider';
