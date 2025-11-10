@@ -20,6 +20,8 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./index.css": "./dist/index.css",
+    "./index.esm.css": "./dist/index.esm.css",
     "./presets/*": "./presets/*.json",
     "./presets": "./presets"
   },
