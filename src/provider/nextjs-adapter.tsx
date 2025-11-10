@@ -16,6 +16,7 @@ import springFestivalTheme from '../presets/spring-festival.json';
 import forestTheme from '../presets/forest.json';
 import partyTheme from '../presets/party.json';
 import redTheme from '../presets/red-theme.json';
+import kmFlowLightTheme from '../presets/km-flow-light-theme.json';
 
 // 注意：Next.js 需要静态导入，所有主题文件必须在构建时存在
 // 如果某个主题文件不存在，需要注释掉对应的导入
@@ -57,6 +58,7 @@ export const NextThemeProvider: React.FC<ThemeProviderProps> = ({
       forest: forestTheme,
       party: partyTheme,
       'red-theme': redTheme,
+      'km-flow-light-theme': kmFlowLightTheme,
       // 如果没有 light.json，使用 default 作为 light
       light: defaultTheme,
     };

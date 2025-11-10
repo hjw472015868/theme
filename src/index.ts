@@ -52,4 +52,5 @@ export { default as kmBaseTheme } from './presets/km-base.json';
 export { default as forestTheme } from './presets/forest.json';
 export { default as partyTheme } from './presets/party.json';
 export { default as redTheme } from './presets/red-theme.json';
+export { default as kmFlowLightTheme } from './presets/km-flow-light-theme.json';
 
