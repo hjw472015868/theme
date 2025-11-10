@@ -40,12 +40,11 @@
     }
   }
 
-  // 所有主题网格（固定三列布局，最低一行三列）
+  // 所有主题网格（缩小版）
   .theme-editor-themes {
     .theme-grid {
       display: grid;
-      // 固定三列布局，确保始终显示3列（最低一行三列）
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(130px, 2fr));
       gap: 12px;
       margin-top: 16px;
     }
@@ -62,9 +61,10 @@
       .active-icon {
         position: absolute;
         top: 6px;
-        right: 6px;
+        left: 6px; // 移到左边，避免与删除按钮重叠
         font-size: 16px;
         color: var(--primary);
+        z-index: 2; // 确保在卡片内容之上
       }
 
       .ant-card-extra {
