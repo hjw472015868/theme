@@ -93,16 +93,272 @@ export function rootContainer(container: React.ReactElement) {
 
 ### 步骤 4: 配置 Tailwind CSS（如果使用）
 
-如果项目使用 Tailwind CSS，需要在 `tailwind.config.js` 中配置主题变量：
+如果项目使用 Tailwind CSS，需要在 `tailwind.config.js` 或 `tailwind.config.ts` 中配置主题变量。
+
+**⚠️ 重要：** 只有配置了这些变量，Tailwind 类名（如 `bg-primary`、`text-foreground`、`p-md` 等）才能正确使用主题系统的颜色和间距。
+
+#### 方式一：JavaScript 配置（tailwind.config.js）
 
 ```javascript
 // tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  // 指定要扫描的文件路径
+  content: [
+    './src/pages/**/*.tsx',
+    './src/components/**/*.tsx',
+    './src/layouts/**/*.tsx',
+    './src/app.tsx',
+  ],
+  // 启用 class 模式的暗色主题（主题系统会自动切换）
   darkMode: 'class',
   theme: {
     extend: {
-      // ========== 颜色 ==========
+      // ========== 颜色配置 ==========
+      colors: {
+        // 语义化颜色（基础颜色，用于背景、文字等）
+        background: 'var(--background)',           // 页面背景色
+        foreground: 'var(--foreground)',           // 主要文字颜色
+        card: {
+          DEFAULT: 'var(--card)',                  // 卡片背景色
+          foreground: 'var(--card-foreground)',     // 卡片文字颜色
+        },
+        border: 'var(--border)',                   // 边框颜色
+        input: 'var(--input)',                      // 输入框边框颜色
+        ring: 'var(--primary)',                    // 焦点环颜色（通常使用主色）
+        
+        // 静音/次要颜色
+        muted: {
+          DEFAULT: 'var(--muted)',                 // 静音背景色
+          foreground: 'var(--muted-foreground)',   // 静音文字颜色
+        },
+        
+        // 强调色
+        accent: {
+          DEFAULT: 'var(--accent)',                // 强调背景色
+          foreground: 'var(--accent-foreground)',  // 强调文字颜色
+        },
+        
+        // 危险/错误色
+        destructive: {
+          DEFAULT: 'var(--destructive)',           // 危险操作背景色
+          foreground: 'var(--destructive-foreground)', // 危险操作文字颜色
+        },
+        
+        // 品牌色梯度（主色）
+        primary: {
+          DEFAULT: 'var(--primary)',               // 主色（默认使用 500）
+          foreground: 'var(--primary-foreground)', // 主色文字颜色
+          50: 'var(--color-primary-50)',           // 最浅
+          100: 'var(--color-primary-100)',
+          200: 'var(--color-primary-200)',
+          300: 'var(--color-primary-300)',
+          400: 'var(--color-primary-400)',
+          500: 'var(--color-primary-500)',          // 主色（常用）
+          600: 'var(--color-primary-600)',
+          700: 'var(--color-primary-700)',
+          800: 'var(--color-primary-800)',
+          900: 'var(--color-primary-900)',         // 最深
+        },
+        
+        // 辅助色梯度
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+          50: 'var(--color-secondary-50)',
+          100: 'var(--color-secondary-100)',
+          200: 'var(--color-secondary-200)',
+          300: 'var(--color-secondary-300)',
+          400: 'var(--color-secondary-400)',
+          500: 'var(--color-secondary-500)',
+          600: 'var(--color-secondary-600)',
+          700: 'var(--color-secondary-700)',
+          800: 'var(--color-secondary-800)',
+          900: 'var(--color-secondary-900)',
+        },
+        
+        // 成功色梯度
+        success: {
+          DEFAULT: 'var(--success)',
+          50: 'var(--color-success-50)',
+          100: 'var(--color-success-100)',
+          200: 'var(--color-success-200)',
+          300: 'var(--color-success-300)',
+          400: 'var(--color-success-400)',
+          500: 'var(--color-success-500)',
+          600: 'var(--color-success-600)',
+          700: 'var(--color-success-700)',
+          800: 'var(--color-success-800)',
+          900: 'var(--color-success-900)',
+        },
+        
+        // 警告色梯度
+        warning: {
+          DEFAULT: 'var(--warning)',
+          50: 'var(--color-warning-50)',
+          100: 'var(--color-warning-100)',
+          200: 'var(--color-warning-200)',
+          300: 'var(--color-warning-300)',
+          400: 'var(--color-warning-400)',
+          500: 'var(--color-warning-500)',
+          600: 'var(--color-warning-600)',
+          700: 'var(--color-warning-700)',
+          800: 'var(--color-warning-800)',
+          900: 'var(--color-warning-900)',
+        },
+        
+        // 错误色梯度
+        error: {
+          DEFAULT: 'var(--error)',
+          50: 'var(--color-error-50)',
+          100: 'var(--color-error-100)',
+          200: 'var(--color-error-200)',
+          300: 'var(--color-error-300)',
+          400: 'var(--color-error-400)',
+          500: 'var(--color-error-500)',
+          600: 'var(--color-error-600)',
+          700: 'var(--color-error-700)',
+          800: 'var(--color-error-800)',
+          900: 'var(--color-error-900)',
+        },
+        
+        // 信息色梯度
+        info: {
+          DEFAULT: 'var(--info)',
+          50: 'var(--color-info-50)',
+          100: 'var(--color-info-100)',
+          200: 'var(--color-info-200)',
+          300: 'var(--color-info-300)',
+          400: 'var(--color-info-400)',
+          500: 'var(--color-info-500)',
+          600: 'var(--color-info-600)',
+          700: 'var(--color-info-700)',
+          800: 'var(--color-info-800)',
+          900: 'var(--color-info-900)',
+        },
+        
+        // 中性色梯度（灰色系）
+        neutral: {
+          50: 'var(--color-neutral-50)',
+          100: 'var(--color-neutral-100)',
+          200: 'var(--color-neutral-200)',
+          300: 'var(--color-neutral-300)',
+          400: 'var(--color-neutral-400)',
+          500: 'var(--color-neutral-500)',
+          600: 'var(--color-neutral-600)',
+          700: 'var(--color-neutral-700)',
+          800: 'var(--color-neutral-800)',
+          900: 'var(--color-neutral-900)',
+        },
+      },
+      
+      // ========== 间距配置 ==========
+      spacing: {
+        xs: 'var(--spacing-xs)',      // 超小间距（通常 4px）
+        sm: 'var(--spacing-sm)',      // 小间距（通常 8px）
+        md: 'var(--spacing-md)',      // 中等间距（通常 16px）
+        lg: 'var(--spacing-lg)',      // 大间距（通常 24px）
+        xl: 'var(--spacing-xl)',      // 超大间距（通常 32px）
+        '2xl': 'var(--spacing-2xl)',  // 2倍大间距（通常 48px）
+        '3xl': 'var(--spacing-3xl)',  // 3倍大间距（通常 64px）
+      },
+      
+      // ========== 圆角配置 ==========
+      borderRadius: {
+        none: 'var(--radius-none)',   // 无圆角
+        sm: 'var(--radius-sm)',        // 小圆角（通常 2px）
+        md: 'var(--radius-md)',        // 中等圆角（通常 4px）
+        lg: 'var(--radius-lg)',        // 大圆角（通常 8px）
+        xl: 'var(--radius-xl)',        // 超大圆角（通常 12px）
+        '2xl': 'var(--radius-2xl)',   // 2倍大圆角（通常 16px）
+        full: 'var(--radius-full)',   // 完全圆形（9999px）
+      },
+      
+      // ========== 字体配置 ==========
+      fontFamily: {
+        sans: 'var(--font-family-sans)',  // 无衬线字体（默认字体）
+        mono: 'var(--font-family-mono)',  // 等宽字体（代码字体）
+      },
+      fontSize: {
+        xs: 'var(--font-size-xs)',        // 超小字体
+        sm: 'var(--font-size-sm)',        // 小字体
+        base: 'var(--font-size-base)',    // 基础字体（默认）
+        lg: 'var(--font-size-lg)',        // 大字体
+        xl: 'var(--font-size-xl)',        // 超大字体
+        '2xl': 'var(--font-size-2xl)',    // 2倍大字体
+        '3xl': 'var(--font-size-3xl)',    // 3倍大字体
+        '4xl': 'var(--font-size-4xl)',   // 4倍大字体
+      },
+      fontWeight: {
+        light: 'var(--font-weight-light)',     // 细体（300）
+        normal: 'var(--font-weight-normal)',   // 常规（400）
+        medium: 'var(--font-weight-medium)',   // 中等（500）
+        semibold: 'var(--font-weight-semibold)', // 半粗（600）
+        bold: 'var(--font-weight-bold)',        // 粗体（700）
+      },
+      lineHeight: {
+        tight: 'var(--line-height-tight)',     // 紧凑行高
+        normal: 'var(--line-height-normal)',   // 正常行高
+        relaxed: 'var(--line-height-relaxed)', // 宽松行高
+      },
+      
+      // ========== 阴影配置 ==========
+      boxShadow: {
+        none: 'var(--shadow-none)',    // 无阴影
+        sm: 'var(--shadow-sm)',         // 小阴影
+        md: 'var(--shadow-md)',         // 中等阴影
+        lg: 'var(--shadow-lg)',         // 大阴影
+        xl: 'var(--shadow-xl)',        // 超大阴影
+        '2xl': 'var(--shadow-2xl)',    // 2倍大阴影
+        inner: 'var(--shadow-inner)',  // 内阴影
+      },
+      
+      // ========== 边框配置 ==========
+      borderWidth: {
+        none: 'var(--border-width-none)',   // 无边框
+        thin: 'var(--border-width-thin)',   // 细边框（通常 1px）
+        medium: 'var(--border-width-medium)', // 中等边框（通常 2px）
+        thick: 'var(--border-width-thick)', // 粗边框（通常 3px）
+      },
+      
+      // ========== 动画配置 ==========
+      transitionDuration: {
+        fast: 'var(--animation-duration-fast)',     // 快速动画
+        normal: 'var(--animation-duration-normal)', // 正常动画
+        slow: 'var(--animation-duration-slow)',     // 慢速动画
+      },
+      transitionTimingFunction: {
+        default: 'var(--animation-easing-default)', // 默认缓动
+        in: 'var(--animation-easing-in)',          // 缓入
+        out: 'var(--animation-easing-out)',       // 缓出
+        'in-out': 'var(--animation-easing-inOut)', // 缓入缓出
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+#### 方式二：TypeScript 配置（tailwind.config.ts）
+
+如果项目使用 TypeScript，可以使用以下配置：
+
+```typescript
+// tailwind.config.ts
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  // 指定要扫描的文件路径
+  content: [
+    './src/pages/**/*.tsx',
+    './src/components/**/*.tsx',
+    './src/layouts/**/*.tsx',
+    './src/app.tsx',
+  ],
+  // 启用 class 模式的暗色主题
+  darkMode: 'class',
+  theme: {
+    extend: {
+      // ========== 颜色配置 ==========
       colors: {
         // 语义化颜色
         background: 'var(--background)',
@@ -113,6 +369,7 @@ module.exports = {
         },
         border: 'var(--border)',
         input: 'var(--input)',
+        ring: 'var(--primary)',
         muted: {
           DEFAULT: 'var(--muted)',
           foreground: 'var(--muted-foreground)',
@@ -141,10 +398,87 @@ module.exports = {
           800: 'var(--color-primary-800)',
           900: 'var(--color-primary-900)',
         },
-        // ... 其他颜色（success, warning, error, info, neutral）
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+          50: 'var(--color-secondary-50)',
+          100: 'var(--color-secondary-100)',
+          200: 'var(--color-secondary-200)',
+          300: 'var(--color-secondary-300)',
+          400: 'var(--color-secondary-400)',
+          500: 'var(--color-secondary-500)',
+          600: 'var(--color-secondary-600)',
+          700: 'var(--color-secondary-700)',
+          800: 'var(--color-secondary-800)',
+          900: 'var(--color-secondary-900)',
+        },
+        success: {
+          DEFAULT: 'var(--success)',
+          50: 'var(--color-success-50)',
+          100: 'var(--color-success-100)',
+          200: 'var(--color-success-200)',
+          300: 'var(--color-success-300)',
+          400: 'var(--color-success-400)',
+          500: 'var(--color-success-500)',
+          600: 'var(--color-success-600)',
+          700: 'var(--color-success-700)',
+          800: 'var(--color-success-800)',
+          900: 'var(--color-success-900)',
+        },
+        warning: {
+          DEFAULT: 'var(--warning)',
+          50: 'var(--color-warning-50)',
+          100: 'var(--color-warning-100)',
+          200: 'var(--color-warning-200)',
+          300: 'var(--color-warning-300)',
+          400: 'var(--color-warning-400)',
+          500: 'var(--color-warning-500)',
+          600: 'var(--color-warning-600)',
+          700: 'var(--color-warning-700)',
+          800: 'var(--color-warning-800)',
+          900: 'var(--color-warning-900)',
+        },
+        error: {
+          DEFAULT: 'var(--error)',
+          50: 'var(--color-error-50)',
+          100: 'var(--color-error-100)',
+          200: 'var(--color-error-200)',
+          300: 'var(--color-error-300)',
+          400: 'var(--color-error-400)',
+          500: 'var(--color-error-500)',
+          600: 'var(--color-error-600)',
+          700: 'var(--color-error-700)',
+          800: 'var(--color-error-800)',
+          900: 'var(--color-error-900)',
+        },
+        info: {
+          DEFAULT: 'var(--info)',
+          50: 'var(--color-info-50)',
+          100: 'var(--color-info-100)',
+          200: 'var(--color-info-200)',
+          300: 'var(--color-info-300)',
+          400: 'var(--color-info-400)',
+          500: 'var(--color-info-500)',
+          600: 'var(--color-info-600)',
+          700: 'var(--color-info-700)',
+          800: 'var(--color-info-800)',
+          900: 'var(--color-info-900)',
+        },
+        neutral: {
+          50: 'var(--color-neutral-50)',
+          100: 'var(--color-neutral-100)',
+          200: 'var(--color-neutral-200)',
+          300: 'var(--color-neutral-300)',
+          400: 'var(--color-neutral-400)',
+          500: 'var(--color-neutral-500)',
+          600: 'var(--color-neutral-600)',
+          700: 'var(--color-neutral-700)',
+          800: 'var(--color-neutral-800)',
+          900: 'var(--color-neutral-900)',
+        },
       },
       
-      // ========== 间距 ==========
+      // ========== 间距配置 ==========
       spacing: {
         xs: 'var(--spacing-xs)',
         sm: 'var(--spacing-sm)',
@@ -155,8 +489,9 @@ module.exports = {
         '3xl': 'var(--spacing-3xl)',
       },
       
-      // ========== 圆角 ==========
+      // ========== 圆角配置 ==========
       borderRadius: {
+        none: 'var(--radius-none)',
         sm: 'var(--radius-sm)',
         md: 'var(--radius-md)',
         lg: 'var(--radius-lg)',
@@ -164,13 +499,116 @@ module.exports = {
         '2xl': 'var(--radius-2xl)',
         full: 'var(--radius-full)',
       },
+      
+      // ========== 字体配置 ==========
+      fontFamily: {
+        sans: 'var(--font-family-sans)',
+        mono: 'var(--font-family-mono)',
+      },
+      fontSize: {
+        xs: 'var(--font-size-xs)',
+        sm: 'var(--font-size-sm)',
+        base: 'var(--font-size-base)',
+        lg: 'var(--font-size-lg)',
+        xl: 'var(--font-size-xl)',
+        '2xl': 'var(--font-size-2xl)',
+        '3xl': 'var(--font-size-3xl)',
+        '4xl': 'var(--font-size-4xl)',
+      },
+      fontWeight: {
+        light: 'var(--font-weight-light)',
+        normal: 'var(--font-weight-normal)',
+        medium: 'var(--font-weight-medium)',
+        semibold: 'var(--font-weight-semibold)',
+        bold: 'var(--font-weight-bold)',
+      },
+      lineHeight: {
+        tight: 'var(--line-height-tight)',
+        normal: 'var(--line-height-normal)',
+        relaxed: 'var(--line-height-relaxed)',
+      },
+      
+      // ========== 阴影配置 ==========
+      boxShadow: {
+        none: 'var(--shadow-none)',
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        xl: 'var(--shadow-xl)',
+        '2xl': 'var(--shadow-2xl)',
+        inner: 'var(--shadow-inner)',
+      },
+      
+      // ========== 边框配置 ==========
+      borderWidth: {
+        none: 'var(--border-width-none)',
+        thin: 'var(--border-width-thin)',
+        medium: 'var(--border-width-medium)',
+        thick: 'var(--border-width-thick)',
+      },
+      
+      // ========== 动画配置 ==========
+      transitionDuration: {
+        fast: 'var(--animation-duration-fast)',
+        normal: 'var(--animation-duration-normal)',
+        slow: 'var(--animation-duration-slow)',
+      },
+      transitionTimingFunction: {
+        default: 'var(--animation-easing-default)',
+        in: 'var(--animation-easing-in)',
+        out: 'var(--animation-easing-out)',
+        'in-out': 'var(--animation-easing-inOut)',
+      },
     },
   },
   plugins: [],
 };
+
+export default config;
 ```
 
-**完整配置示例：** 参考 [使用指南.md](./使用指南.md#tailwind-css-配置) 中的完整配置。
+#### 配置说明
+
+**为什么需要这些配置？**
+
+1. **颜色映射**：将 Tailwind 的颜色类名（如 `bg-primary`、`text-foreground`）映射到主题系统的 CSS 变量
+2. **间距映射**：将 Tailwind 的间距类名（如 `p-md`、`m-lg`）映射到主题系统的间距变量
+3. **圆角映射**：将 Tailwind 的圆角类名（如 `rounded-md`）映射到主题系统的圆角变量
+4. **字体映射**：将 Tailwind 的字体类名映射到主题系统的字体变量
+5. **阴影映射**：将 Tailwind 的阴影类名（如 `shadow-md`）映射到主题系统的阴影变量
+
+**配置后可以使用的 Tailwind 类名示例：**
+
+```tsx
+// 颜色
+<div className="bg-background text-foreground">背景和文字</div>
+<div className="bg-card text-card-foreground">卡片</div>
+<div className="bg-primary text-primary-foreground">主色</div>
+<div className="bg-primary-500">主色 500</div>
+<div className="border border-border">边框</div>
+
+// 间距
+<div className="p-md m-lg">内边距和外边距</div>
+<div className="px-sm py-md">水平垂直间距</div>
+
+// 圆角
+<button className="rounded-md">中等圆角</button>
+<div className="rounded-lg">大圆角</div>
+
+// 字体
+<p className="text-base font-medium">基础字体</p>
+<p className="text-lg font-bold">大号粗体</p>
+
+// 阴影
+<div className="shadow-md">中等阴影</div>
+<div className="shadow-lg">大阴影</div>
+```
+
+**⚠️ 注意事项：**
+
+- 配置后需要重启开发服务器才能生效
+- 如果某些类名不生效，检查 `content` 配置是否包含对应的文件路径
+- 确保已导入主题系统的样式文件（`@km-design/theme-system/index.css`）
 
 ### 步骤 5: 在组件中使用
 
