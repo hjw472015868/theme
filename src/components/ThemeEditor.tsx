@@ -113,11 +113,78 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
     }
   }, [open, themeConfig, currentTheme]);
 
-  // 颜色转换辅助函数
+  // 颜色转换辅助函数（保持RGBA格式）
   const colorToHex = (color?: Color | string | null): string => {
     if (!color) return '#000000';
-    if (typeof color === 'string') return color;
+    if (typeof color === 'string') {
+      // 如果是RGBA格式，保持原样
+      if (color.startsWith('rgba(') || color.startsWith('rgb(')) {
+        return color;
+      }
+      return color;
+    }
     return color.toHexString();
+  };
+
+  // 颜色转换为 RGBA 辅助函数
+  const colorToRgba = (color?: Color | string | null, alpha?: number): string => {
+    if (!color) return 'rgba(0, 0, 0, 1)';
+    
+    if (typeof color === 'string') {
+      // 如果已经是 rgba 格式，解析并更新透明度
+      const rgbaMatch = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)/);
+      if (rgbaMatch) {
+        const [, r, g, b] = rgbaMatch;
+        const finalAlpha = alpha !== undefined ? alpha : (rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 1);
+        return `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
+      }
+      
+      // 如果是 hex 格式，转换为 rgba
+      const hexMatch = color.match(/^#?([a-fA-F\d]{6}|[a-fA-F\d]{3})$/);
+      if (hexMatch) {
+        let hex = hexMatch[1];
+        if (hex.length === 3) {
+          hex = hex.split('').map(char => char + char).join('');
+        }
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        const finalAlpha = alpha !== undefined ? alpha : 1;
+        return `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
+      }
+      
+      return color; // 返回原始值
+    }
+    
+    // 如果是 Color 对象
+    const rgb = color.toRgb();
+    const finalAlpha = alpha !== undefined ? alpha : (rgb.a !== undefined ? rgb.a : 1);
+    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${finalAlpha})`;
+  };
+
+  // 从颜色字符串中提取透明度
+  const getAlphaFromColor = (color: string): number => {
+    if (!color) return 1;
+    
+    // 匹配 rgba(r,g,b,a) 格式
+    const rgbaMatch = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)/);
+    if (rgbaMatch && rgbaMatch[4] !== undefined) {
+      const alpha = parseFloat(rgbaMatch[4]);
+      return isNaN(alpha) ? 1 : alpha;
+    }
+    
+    // 如果是 rgb() 格式（没有透明度），返回1
+    const rgbMatch = color.match(/rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)/);
+    if (rgbMatch) {
+      return 1;
+    }
+    
+    // 如果是 hex 格式，返回1
+    if (color.startsWith('#')) {
+      return 1;
+    }
+    
+    return 1; // 默认不透明
   };
 
   // 更新配置（实时应用）
@@ -479,7 +546,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
     '900': '最深',
   };
 
-  // 颜色输入组件（避免焦点丢失，支持平滑选色）
+  // 颜色输入组件（避免焦点丢失，支持平滑选色和透明度控制）
   const ColorInput: React.FC<{
     label: string;
     value: string;
@@ -489,15 +556,36 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
     const [localValue, setLocalValue] = React.useState(value);
     const [pickerOpen, setPickerOpen] = React.useState(false);
     const [tempColor, setTempColor] = React.useState(value);
+    const [alpha, setAlpha] = React.useState(() => getAlphaFromColor(value));
     const colorPickerRef = React.useRef<HTMLDivElement>(null);
 
     // 获取中文标签
     const zhLabel = colorLabelMap[label] || label;
 
     React.useEffect(() => {
+      // 如果当前值和新值的RGB部分相同，只有透明度不同，不重置透明度
+      const currentRgbaMatch = tempColor.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
+      const newRgbaMatch = value.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
+      
+      if (currentRgbaMatch && newRgbaMatch) {
+        const [, cr, cg, cb] = currentRgbaMatch;
+        const [, nr, ng, nb] = newRgbaMatch;
+        
+        // 如果RGB相同，保持当前透明度
+        if (cr === nr && cg === ng && cb === nb) {
+          setLocalValue(value);
+          setTempColor(value);
+          // 不重置透明度
+          return;
+        }
+      }
+      
+      // 否则正常更新所有状态
       setLocalValue(value);
       setTempColor(value);
-    }, [value]);
+      const newAlpha = getAlphaFromColor(value);
+      setAlpha(newAlpha);
+    }, [value, tempColor]);
 
     // 点击外部区域时关闭选择器
     React.useEffect(() => {
@@ -506,8 +594,9 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
             !colorPickerRef.current.contains(event.target as Node)) {
           // 点击外部，关闭选择器并应用最终颜色到配置
           setPickerOpen(false);
-          if (tempColor !== value) {
-            onChange(tempColor);
+          const finalColor = colorToRgba(tempColor, alpha);
+          if (finalColor !== value) {
+            onChange(finalColor);
           }
         }
       };
@@ -533,9 +622,12 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
 
     // 拖动选色时：只更新本地状态 + 直接更新 CSS 变量实现实时预览
     const handleColorChange = (color: Color) => {
-      const hexColor = colorToHex(color);
-      setTempColor(hexColor);
-      setLocalValue(hexColor);
+      // 从Color对象获取RGB值，保持当前透明度
+      const rgb = color.toRgb();
+      const rgbaColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+      
+      setTempColor(rgbaColor);
+      setLocalValue(rgbaColor);
       
       // ⭐ 关键：不调用 onChange（避免父组件重新渲染），而是直接更新 CSS 变量
       if (colorPath && colorPath.length >= 3) {
@@ -550,7 +642,60 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
           // 主色板和其他颜色：--primary-500, --success-500 等
           varName = `--${colorPath[1]}-${colorPath[2]}`;
         }
-        document.documentElement.style.setProperty(varName, hexColor);
+        document.documentElement.style.setProperty(varName, rgbaColor);
+      }
+    };
+
+    // 透明度变更处理函数
+    const handleAlphaChange = (newAlpha: number) => {
+      setAlpha(newAlpha);
+      
+      // 从当前颜色中提取RGB，然后用新的透明度重新构建
+      let rgbaColor: string;
+      
+      // 如果tempColor是rgba格式，提取RGB
+      const rgbaMatch = tempColor.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
+      if (rgbaMatch) {
+        const [, r, g, b] = rgbaMatch;
+        rgbaColor = `rgba(${r}, ${g}, ${b}, ${newAlpha})`;
+      } 
+      // 如果是hex格式，转换为rgba
+      else if (tempColor.startsWith('#')) {
+        rgbaColor = colorToRgba(tempColor, newAlpha);
+      }
+      // 其他情况，直接使用colorToRgba
+      else {
+        rgbaColor = colorToRgba(tempColor, newAlpha);
+      }
+      
+      setTempColor(rgbaColor);
+      setLocalValue(rgbaColor);
+      
+      // 实时更新 CSS 变量
+      if (colorPath && colorPath.length >= 3) {
+        let varName: string;
+        if (colorPath[1] === 'semantic') {
+          const kebabKey = colorPath[2].replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+          varName = `--${kebabKey}`;
+        } else {
+          varName = `--${colorPath[1]}-${colorPath[2]}`;
+        }
+        document.documentElement.style.setProperty(varName, rgbaColor);
+      }
+    };
+
+    // 透明度拖动结束时更新配置
+    const handleAlphaAfterChange = (newAlpha: number) => {
+      // 从当前tempColor中提取RGB值，用新的透明度构建最终颜色
+      const rgbaMatch = tempColor.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
+      if (rgbaMatch) {
+        const [, r, g, b] = rgbaMatch;
+        const finalColor = `rgba(${r}, ${g}, ${b}, ${newAlpha})`;
+        onChange(finalColor);
+      } else {
+        // 如果不是rgba格式，使用原有逻辑
+        const finalColor = colorToRgba(tempColor, newAlpha);
+        onChange(finalColor);
       }
     };
 
@@ -587,7 +732,23 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
             value={localValue}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
-            placeholder="#RRGGBB"
+            placeholder="rgba(r,g,b,a)"
+          />
+        </div>
+
+        {/* 透明度控制 */}
+        <div className="alpha-control">
+          <div className="alpha-label">
+            透明度: {Math.round(alpha * 100)}%
+          </div>
+          <Slider
+            value={alpha}
+            onChange={handleAlphaChange}
+            onAfterChange={handleAlphaAfterChange}
+            min={0}
+            max={1}
+            step={0.01}
+            tooltip={{ formatter: (val) => `${Math.round((val || 0) * 100)}%` }}
           />
         </div>
       </div>
