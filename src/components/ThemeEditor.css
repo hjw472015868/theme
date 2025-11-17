@@ -34,6 +34,7 @@
 .theme-editor-drawer .theme-editor-themes .theme-card {
   position: relative;
   transition: all 0.3s;
+  overflow: hidden;
 }
 .theme-editor-drawer .theme-editor-themes .theme-card.active {
   border-color: var(--primary);

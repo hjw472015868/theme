@@ -1219,7 +1219,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
     );
   };
 
-  // 边框配置单行组件（支持平滑拖动颜色选择）
+  // 边框配置单行组件（支持平滑拖动颜色选择和滑块调节宽度）
   const BorderConfigRow: React.FC<{
     label: string;
     width: string;
@@ -1234,11 +1234,20 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
     const [localColor, setLocalColor] = React.useState(color);
     const [isPickerOpen, setIsPickerOpen] = React.useState(false);
     const colorPickerRef = React.useRef<HTMLDivElement>(null);
+    
+    // 边框宽度的本地状态，用于实时预览
+    const [localWidth, setLocalWidth] = React.useState<number>(() => {
+      return parseFloat(width.replace('px', '')) || 0;
+    });
 
-    // 同步外部颜色到本地状态
+    // 同步外部颜色和宽度到本地状态
     React.useEffect(() => {
       setLocalColor(color);
     }, [color]);
+
+    React.useEffect(() => {
+      setLocalWidth(parseFloat(width.replace('px', '')) || 0);
+    }, [width]);
 
     // 点击外部关闭颜色选择器
     React.useEffect(() => {
@@ -1268,10 +1277,26 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
         const hexColor = colorToHex(color);
         setLocalColor(hexColor);
         
-        // 直接更新CSS变量实现实时预览（不调用onColorChange避免重渲染）
-        // 边框颜色的CSS变量名需要根据实际情况调整
-        // 这里暂时不做实时预览，因为边框颜色不是直接的CSS变量
-        // 只在关闭选择器或失去焦点时才应用到配置
+        // 根据边框标签获取对应的key实现实时预览
+        const borderKey = Object.entries({
+          '无边框': 'none',
+          '默认边框': 'default', 
+          '卡片边框': 'card',
+          '输入框边框': 'input',
+          '加粗边框': 'thick',
+          '虚线边框': 'dashed',
+          '点线边框': 'dotted'
+        }).find(([labelText]) => labelText === label)?.[1];
+        
+        if (borderKey) {
+          // 实时更新边框颜色CSS变量
+          document.documentElement.style.setProperty(`--border-color-${borderKey}`, hexColor);
+          
+          // 同时更新完整边框变量
+          const newBorderValue = localWidth === 0 ? '0' : `${localWidth}px ${style}`;
+          const fullBorderValue = localWidth === 0 || style === 'none' ? 'none' : `${newBorderValue} ${hexColor}`;
+          document.documentElement.style.setProperty(`--border-full-${borderKey}`, fullBorderValue);
+        }
       }
     };
 
@@ -1284,20 +1309,60 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ open, onClose }) => {
       setIsPickerOpen(open);
     };
 
+    // 边框宽度拖动时的实时预览（不更新配置，避免重渲染）
+    const handleWidthChange = (newValue: number) => {
+      setLocalWidth(newValue);
+      
+      // 根据边框标签获取对应的key（从label反推key）
+      const borderKey = Object.entries({
+        '无边框': 'none',
+        '默认边框': 'default', 
+        '卡片边框': 'card',
+        '输入框边框': 'input',
+        '加粗边框': 'thick',
+        '虚线边框': 'dashed',
+        '点线边框': 'dotted'
+      }).find(([labelText]) => labelText === label)?.[1];
+      
+      if (borderKey) {
+        // 实时更新CSS变量实现预览
+        document.documentElement.style.setProperty(`--border-width-${borderKey}`, `${newValue}px`);
+        
+        // 同时更新完整边框变量
+        const newBorderValue = newValue === 0 ? '0' : `${newValue}px ${style}`;
+        const fullBorderValue = newValue === 0 || style === 'none' ? 'none' : `${newBorderValue} ${localColor}`;
+        document.documentElement.style.setProperty(`--border-full-${borderKey}`, fullBorderValue);
+      }
+    };
+
+    // 边框宽度拖动结束时更新配置
+    const handleWidthAfterChange = (newValue: number) => {
+      onWidthChange(`${newValue}px`);
+    };
+
     return (
       <div
         style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}
       >
         <Text style={{ width: 100, fontWeight: 500 }}>{label}</Text>
 
-        {/* 宽度输入 */}
-        <Input
-          value={style === 'none' ? '0' : width}
-          onChange={(e) => onWidthChange(e.target.value)}
-          style={{ width: 80 }}
-          placeholder="1px"
-          disabled={style === 'none'}
-        />
+        {/* 宽度滑块 */}
+        <div style={{ width: 200, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Slider
+            value={style === 'none' ? 0 : localWidth}
+            onChange={handleWidthChange}
+            onAfterChange={handleWidthAfterChange}
+            min={0}
+            max={10}
+            step={0.5}
+            style={{ flex: 1 }}
+            disabled={style === 'none'}
+            tooltip={{ formatter: (val) => `${val}px` }}
+          />
+          <Text style={{ fontSize: 12, color: '#1890ff', minWidth: 35 }}>
+            {style === 'none' ? '0px' : `${localWidth}px`}
+          </Text>
+        </div>
 
         {/* 样式下拉选择 */}
         <Select value={style} onChange={onStyleChange} options={borderStyleOptions} style={{ width: 150 }} />
