@@ -1,6 +1,6 @@
 {
   "name": "@km-design/theme-system",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "统一主题系统，支持 UmiJS 和 Next.js 项目",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
