@@ -220,15 +220,21 @@ function syncPresetsToSrc(themes) {
   // 确保目录存在
   if (!fs.existsSync(SRC_PRESETS_DIR)) {
     fs.mkdirSync(SRC_PRESETS_DIR, { recursive: true });
+  } else {
+    // 清空目标目录
+    const files = fs.readdirSync(SRC_PRESETS_DIR);
+    files.forEach(file => {
+      const filePath = path.join(SRC_PRESETS_DIR, file);
+      fs.unlinkSync(filePath);
+    });
+    console.log('🧹 已清空 src/presets 目录');
   }
 
-  // 复制文件到 src/presets
+  // 复制所有主题文件到 src/presets
   themes.forEach(theme => {
-    const srcFile = path.join(SRC_PRESETS_DIR, theme.filename);
-    if (!fs.existsSync(srcFile)) {
-      fs.copyFileSync(theme.path, srcFile);
-      console.log(`📋 已复制: ${theme.filename} -> src/presets/`);
-    }
+    const destFile = path.join(SRC_PRESETS_DIR, theme.filename);
+    fs.copyFileSync(theme.path, destFile);
+    console.log(`📋 已复制: ${theme.filename} -> src/presets/`);
   });
 }
 

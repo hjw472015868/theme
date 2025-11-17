@@ -86,7 +86,7 @@ export function rootContainer(container: React.ReactElement) {
 **参数说明：**
 
 | 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
+| --- | --- | --- | --- |
 | `defaultTheme` | `string` | `"default"` | 默认主题名称，可选：`default`、`dark`、`km-base` 等 |
 | `enableStorage` | `boolean` | `true` | 是否将主题选择保存到 localStorage |
 | `storageKey` | `string` | `"km-theme"` | localStorage 存储键名，不同项目可使用不同键名避免冲突 |
@@ -116,50 +116,50 @@ module.exports = {
       // ========== 颜色配置 ==========
       colors: {
         // 语义化颜色（基础颜色，用于背景、文字等）
-        background: 'var(--background)',           // 页面背景色
-        foreground: 'var(--foreground)',           // 主要文字颜色
+        background: 'var(--background)', // 页面背景色
+        foreground: 'var(--foreground)', // 主要文字颜色
         card: {
-          DEFAULT: 'var(--card)',                  // 卡片背景色
-          foreground: 'var(--card-foreground)',     // 卡片文字颜色
+          DEFAULT: 'var(--card)', // 卡片背景色
+          foreground: 'var(--card-foreground)', // 卡片文字颜色
         },
-        border: 'var(--border)',                   // 边框颜色
-        input: 'var(--input)',                      // 输入框边框颜色
-        ring: 'var(--primary)',                    // 焦点环颜色（通常使用主色）
-        
+        border: 'var(--border)', // 边框颜色
+        input: 'var(--input)', // 输入框边框颜色
+        ring: 'var(--primary)', // 焦点环颜色（通常使用主色）
+
         // 静音/次要颜色
         muted: {
-          DEFAULT: 'var(--muted)',                 // 静音背景色
-          foreground: 'var(--muted-foreground)',   // 静音文字颜色
+          DEFAULT: 'var(--muted)', // 静音背景色
+          foreground: 'var(--muted-foreground)', // 静音文字颜色
         },
-        
+
         // 强调色
         accent: {
-          DEFAULT: 'var(--accent)',                // 强调背景色
-          foreground: 'var(--accent-foreground)',  // 强调文字颜色
+          DEFAULT: 'var(--accent)', // 强调背景色
+          foreground: 'var(--accent-foreground)', // 强调文字颜色
         },
-        
+
         // 危险/错误色
         destructive: {
-          DEFAULT: 'var(--destructive)',           // 危险操作背景色
+          DEFAULT: 'var(--destructive)', // 危险操作背景色
           foreground: 'var(--destructive-foreground)', // 危险操作文字颜色
         },
-        
+
         // 品牌色梯度（主色）
         primary: {
-          DEFAULT: 'var(--primary)',               // 主色（默认使用 500）
+          DEFAULT: 'var(--primary)', // 主色（默认使用 500）
           foreground: 'var(--primary-foreground)', // 主色文字颜色
-          50: 'var(--color-primary-50)',           // 最浅
+          50: 'var(--color-primary-50)', // 最浅
           100: 'var(--color-primary-100)',
           200: 'var(--color-primary-200)',
           300: 'var(--color-primary-300)',
           400: 'var(--color-primary-400)',
-          500: 'var(--color-primary-500)',          // 主色（常用）
+          500: 'var(--color-primary-500)', // 主色（常用）
           600: 'var(--color-primary-600)',
           700: 'var(--color-primary-700)',
           800: 'var(--color-primary-800)',
-          900: 'var(--color-primary-900)',         // 最深
+          900: 'var(--color-primary-900)', // 最深
         },
-        
+
         // 辅助色梯度
         secondary: {
           DEFAULT: 'var(--secondary)',
@@ -175,7 +175,7 @@ module.exports = {
           800: 'var(--color-secondary-800)',
           900: 'var(--color-secondary-900)',
         },
-        
+
         // 成功色梯度
         success: {
           DEFAULT: 'var(--success)',
@@ -190,7 +190,7 @@ module.exports = {
           800: 'var(--color-success-800)',
           900: 'var(--color-success-900)',
         },
-        
+
         // 警告色梯度
         warning: {
           DEFAULT: 'var(--warning)',
@@ -205,7 +205,7 @@ module.exports = {
           800: 'var(--color-warning-800)',
           900: 'var(--color-warning-900)',
         },
-        
+
         // 错误色梯度
         error: {
           DEFAULT: 'var(--error)',
@@ -220,7 +220,7 @@ module.exports = {
           800: 'var(--color-error-800)',
           900: 'var(--color-error-900)',
         },
-        
+
         // 信息色梯度
         info: {
           DEFAULT: 'var(--info)',
@@ -235,7 +235,7 @@ module.exports = {
           800: 'var(--color-info-800)',
           900: 'var(--color-info-900)',
         },
-        
+
         // 中性色梯度（灰色系）
         neutral: {
           50: 'var(--color-neutral-50)',
@@ -250,86 +250,86 @@ module.exports = {
           900: 'var(--color-neutral-900)',
         },
       },
-      
+
       // ========== 间距配置 ==========
       spacing: {
-        xs: 'var(--spacing-xs)',      // 超小间距（通常 4px）
-        sm: 'var(--spacing-sm)',      // 小间距（通常 8px）
-        md: 'var(--spacing-md)',      // 中等间距（通常 16px）
-        lg: 'var(--spacing-lg)',      // 大间距（通常 24px）
-        xl: 'var(--spacing-xl)',      // 超大间距（通常 32px）
-        '2xl': 'var(--spacing-2xl)',  // 2倍大间距（通常 48px）
-        '3xl': 'var(--spacing-3xl)',  // 3倍大间距（通常 64px）
+        xs: 'var(--spacing-xs)', // 超小间距（通常 4px）
+        sm: 'var(--spacing-sm)', // 小间距（通常 8px）
+        md: 'var(--spacing-md)', // 中等间距（通常 16px）
+        lg: 'var(--spacing-lg)', // 大间距（通常 24px）
+        xl: 'var(--spacing-xl)', // 超大间距（通常 32px）
+        '2xl': 'var(--spacing-2xl)', // 2倍大间距（通常 48px）
+        '3xl': 'var(--spacing-3xl)', // 3倍大间距（通常 64px）
       },
-      
+
       // ========== 圆角配置 ==========
       borderRadius: {
-        none: 'var(--radius-none)',   // 无圆角
-        sm: 'var(--radius-sm)',        // 小圆角（通常 2px）
-        md: 'var(--radius-md)',        // 中等圆角（通常 4px）
-        lg: 'var(--radius-lg)',        // 大圆角（通常 8px）
-        xl: 'var(--radius-xl)',        // 超大圆角（通常 12px）
-        '2xl': 'var(--radius-2xl)',   // 2倍大圆角（通常 16px）
-        full: 'var(--radius-full)',   // 完全圆形（9999px）
+        none: 'var(--radius-none)', // 无圆角
+        sm: 'var(--radius-sm)', // 小圆角（通常 2px）
+        md: 'var(--radius-md)', // 中等圆角（通常 4px）
+        lg: 'var(--radius-lg)', // 大圆角（通常 8px）
+        xl: 'var(--radius-xl)', // 超大圆角（通常 12px）
+        '2xl': 'var(--radius-2xl)', // 2倍大圆角（通常 16px）
+        full: 'var(--radius-full)', // 完全圆形（9999px）
       },
-      
+
       // ========== 字体配置 ==========
       fontFamily: {
-        sans: 'var(--font-family-sans)',  // 无衬线字体（默认字体）
-        mono: 'var(--font-family-mono)',  // 等宽字体（代码字体）
+        sans: 'var(--font-family-sans)', // 无衬线字体（默认字体）
+        mono: 'var(--font-family-mono)', // 等宽字体（代码字体）
       },
       fontSize: {
-        xs: 'var(--font-size-xs)',        // 超小字体
-        sm: 'var(--font-size-sm)',        // 小字体
-        base: 'var(--font-size-base)',    // 基础字体（默认）
-        lg: 'var(--font-size-lg)',        // 大字体
-        xl: 'var(--font-size-xl)',        // 超大字体
-        '2xl': 'var(--font-size-2xl)',    // 2倍大字体
-        '3xl': 'var(--font-size-3xl)',    // 3倍大字体
-        '4xl': 'var(--font-size-4xl)',   // 4倍大字体
+        xs: 'var(--font-size-xs)', // 超小字体
+        sm: 'var(--font-size-sm)', // 小字体
+        base: 'var(--font-size-base)', // 基础字体（默认）
+        lg: 'var(--font-size-lg)', // 大字体
+        xl: 'var(--font-size-xl)', // 超大字体
+        '2xl': 'var(--font-size-2xl)', // 2倍大字体
+        '3xl': 'var(--font-size-3xl)', // 3倍大字体
+        '4xl': 'var(--font-size-4xl)', // 4倍大字体
       },
       fontWeight: {
-        light: 'var(--font-weight-light)',     // 细体（300）
-        normal: 'var(--font-weight-normal)',   // 常规（400）
-        medium: 'var(--font-weight-medium)',   // 中等（500）
+        light: 'var(--font-weight-light)', // 细体（300）
+        normal: 'var(--font-weight-normal)', // 常规（400）
+        medium: 'var(--font-weight-medium)', // 中等（500）
         semibold: 'var(--font-weight-semibold)', // 半粗（600）
-        bold: 'var(--font-weight-bold)',        // 粗体（700）
+        bold: 'var(--font-weight-bold)', // 粗体（700）
       },
       lineHeight: {
-        tight: 'var(--line-height-tight)',     // 紧凑行高
-        normal: 'var(--line-height-normal)',   // 正常行高
+        tight: 'var(--line-height-tight)', // 紧凑行高
+        normal: 'var(--line-height-normal)', // 正常行高
         relaxed: 'var(--line-height-relaxed)', // 宽松行高
       },
-      
+
       // ========== 阴影配置 ==========
       boxShadow: {
-        none: 'var(--shadow-none)',    // 无阴影
-        sm: 'var(--shadow-sm)',         // 小阴影
-        md: 'var(--shadow-md)',         // 中等阴影
-        lg: 'var(--shadow-lg)',         // 大阴影
-        xl: 'var(--shadow-xl)',        // 超大阴影
-        '2xl': 'var(--shadow-2xl)',    // 2倍大阴影
-        inner: 'var(--shadow-inner)',  // 内阴影
+        none: 'var(--shadow-none)', // 无阴影
+        sm: 'var(--shadow-sm)', // 小阴影
+        md: 'var(--shadow-md)', // 中等阴影
+        lg: 'var(--shadow-lg)', // 大阴影
+        xl: 'var(--shadow-xl)', // 超大阴影
+        '2xl': 'var(--shadow-2xl)', // 2倍大阴影
+        inner: 'var(--shadow-inner)', // 内阴影
       },
-      
+
       // ========== 边框配置 ==========
       borderWidth: {
-        none: 'var(--border-width-none)',   // 无边框
-        thin: 'var(--border-width-thin)',   // 细边框（通常 1px）
+        none: 'var(--border-width-none)', // 无边框
+        thin: 'var(--border-width-thin)', // 细边框（通常 1px）
         medium: 'var(--border-width-medium)', // 中等边框（通常 2px）
         thick: 'var(--border-width-thick)', // 粗边框（通常 3px）
       },
-      
+
       // ========== 动画配置 ==========
       transitionDuration: {
-        fast: 'var(--animation-duration-fast)',     // 快速动画
+        fast: 'var(--animation-duration-fast)', // 快速动画
         normal: 'var(--animation-duration-normal)', // 正常动画
-        slow: 'var(--animation-duration-slow)',     // 慢速动画
+        slow: 'var(--animation-duration-slow)', // 慢速动画
       },
       transitionTimingFunction: {
         default: 'var(--animation-easing-default)', // 默认缓动
-        in: 'var(--animation-easing-in)',          // 缓入
-        out: 'var(--animation-easing-out)',       // 缓出
+        in: 'var(--animation-easing-in)', // 缓入
+        out: 'var(--animation-easing-out)', // 缓出
         'in-out': 'var(--animation-easing-inOut)', // 缓入缓出
       },
     },
@@ -382,7 +382,7 @@ const config: Config = {
           DEFAULT: 'var(--destructive)',
           foreground: 'var(--destructive-foreground)',
         },
-        
+
         // 品牌色梯度
         primary: {
           DEFAULT: 'var(--primary)',
@@ -477,7 +477,7 @@ const config: Config = {
           900: 'var(--color-neutral-900)',
         },
       },
-      
+
       // ========== 间距配置 ==========
       spacing: {
         xs: 'var(--spacing-xs)',
@@ -488,7 +488,7 @@ const config: Config = {
         '2xl': 'var(--spacing-2xl)',
         '3xl': 'var(--spacing-3xl)',
       },
-      
+
       // ========== 圆角配置 ==========
       borderRadius: {
         none: 'var(--radius-none)',
@@ -499,7 +499,7 @@ const config: Config = {
         '2xl': 'var(--radius-2xl)',
         full: 'var(--radius-full)',
       },
-      
+
       // ========== 字体配置 ==========
       fontFamily: {
         sans: 'var(--font-family-sans)',
@@ -527,7 +527,7 @@ const config: Config = {
         normal: 'var(--line-height-normal)',
         relaxed: 'var(--line-height-relaxed)',
       },
-      
+
       // ========== 阴影配置 ==========
       boxShadow: {
         none: 'var(--shadow-none)',
@@ -538,7 +538,7 @@ const config: Config = {
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
       },
-      
+
       // ========== 边框配置 ==========
       borderWidth: {
         none: 'var(--border-width-none)',
@@ -546,7 +546,7 @@ const config: Config = {
         medium: 'var(--border-width-medium)',
         thick: 'var(--border-width-thick)',
       },
-      
+
       // ========== 动画配置 ==========
       transitionDuration: {
         fast: 'var(--animation-duration-fast)',
@@ -619,7 +619,7 @@ export default config;
 import { useTheme, ThemeSwitcher } from '@km-design/theme-system';
 
 export default function Header() {
-  const { 
+  const {
     currentTheme,      // 当前主题名称
     switchTheme,       // 切换主题函数
     availableThemes,   // 可用主题列表
@@ -634,15 +634,15 @@ export default function Header() {
       color: 'var(--foreground)',
     }}>
       <div>我的应用</div>
-      
+
       {/* 使用内置主题切换器 */}
       <ThemeSwitcher />
-      
+
       {/* 或自定义切换逻辑 */}
       <div>
         {availableThemes.map(theme => (
-          <button 
-            key={theme} 
+          <button
+            key={theme}
             onClick={() => switchTheme(theme)}
             style={{
               background: currentTheme === theme ? 'var(--primary)' : 'transparent',
@@ -653,7 +653,7 @@ export default function Header() {
           </button>
         ))}
       </div>
-      
+
       <p>当前主题: {currentTheme}</p>
       {isDarkMode && <span>🌙 暗色模式</span>}
     </header>
@@ -669,7 +669,7 @@ export default function Header() {
 // src/components/Card.tsx
 export default function Card({ children }) {
   return (
-    <div 
+    <div
       className="card"
       style={{
         background: 'var(--card)',
@@ -724,14 +724,14 @@ export default function Card({ children }) {
 
 ### 迁移对照表
 
-| 原写法 | 迁移写法 | 说明 |
-|--------|----------|------|
-| `background: #ffffff` | `background: var(--background)` | 背景色 |
-| `color: #000000` | `color: var(--foreground)` | 文字颜色 |
-| `border: 1px solid #e0e0e0` | `border: 1px solid var(--border)` | 边框 |
-| `padding: 16px` | `padding: var(--spacing-md)` | 间距 |
-| `border-radius: 8px` | `border-radius: var(--radius-md)` | 圆角 |
-| `box-shadow: 0 2px 8px rgba(0,0,0,0.1)` | `box-shadow: var(--shadow-md)` | 阴影 |
+| 原写法                                  | 迁移写法                          | 说明     |
+| --------------------------------------- | --------------------------------- | -------- |
+| `background: #ffffff`                   | `background: var(--background)`   | 背景色   |
+| `color: #000000`                        | `color: var(--foreground)`        | 文字颜色 |
+| `border: 1px solid #e0e0e0`             | `border: 1px solid var(--border)` | 边框     |
+| `padding: 16px`                         | `padding: var(--spacing-md)`      | 间距     |
+| `border-radius: 8px`                    | `border-radius: var(--radius-md)` | 圆角     |
+| `box-shadow: 0 2px 8px rgba(0,0,0,0.1)` | `box-shadow: var(--shadow-md)`    | 阴影     |
 
 ### 迁移步骤
 
@@ -796,12 +796,13 @@ export default function Card({ children }) {
 **方式一：使用主题配置中心（推荐）**
 
 1. 在组件中使用 `ThemeEditor`：
+
    ```tsx
    import { ThemeEditor } from '@km-design/theme-system';
-   
+
    const [editorOpen, setEditorOpen] = useState(false);
-   
-   <ThemeEditor open={editorOpen} onClose={() => setEditorOpen(false)} />
+
+   <ThemeEditor open={editorOpen} onClose={() => setEditorOpen(false)} />;
    ```
 
 2. 打开配置中心，修改颜色、间距等
@@ -812,10 +813,11 @@ export default function Card({ children }) {
 1. 参考 `presets/` 目录下的主题文件格式
 2. 创建自己的主题 JSON 文件
 3. 使用 `registerTheme` 注册：
+
    ```tsx
    import { registerTheme } from '@km-design/theme-system';
    import myTheme from './my-theme.json';
-   
+
    registerTheme('my-theme', myTheme);
    ```
 
@@ -826,13 +828,13 @@ import { useTheme } from '@km-design/theme-system';
 
 function MyComponent() {
   const { themeConfig } = useTheme();
-  
+
   // 获取主色 500
   const primaryColor = themeConfig?.colors?.primary?.[500];
-  
+
   // 获取背景色
   const backgroundColor = themeConfig?.colors?.semantic?.background;
-  
+
   // 获取间距
   const spacingMd = themeConfig?.spacing?.md;
 }
@@ -929,4 +931,3 @@ function MyComponent() {
 
 **最后更新**: 2025-01-14  
 **版本**: v1.0.0
-

@@ -15,11 +15,9 @@ import { ThemeProvider, registerThemes, type ThemeProviderProps } from './ThemeP
 // 自动生成的预设主题导入
 import defaultTheme from '../presets/default.json';
 import darkTheme from '../presets/dark.json';
-import forestTheme from '../presets/forest.json';
 import kmBaseTheme from '../presets/km-base.json';
 import kmFlowLightTheme from '../presets/km-flow-light-theme.json';
 import partyTheme from '../presets/party.json';
-import redTheme from '../presets/red-theme.json';
 import springFestivalTheme from '../presets/spring-festival.json';
 
 /**
@@ -54,11 +52,9 @@ export const NextThemeProvider: React.FC<ThemeProviderProps> = ({
     const themes: Record<string, any> = {
       'default': defaultTheme,
       'dark': darkTheme,
-      'forest': forestTheme,
       'km-base': kmBaseTheme,
       'km-flow-light-theme': kmFlowLightTheme,
       'party': partyTheme,
-      'red-theme': redTheme,
       'spring-festival': springFestivalTheme,
       // 如果没有 light.json，使用 default 作为 light
       light: defaultTheme,
